@@ -6,7 +6,20 @@ const Countries = ({countries}) => {
     if (countries.length > 10) {
         return (<div>Too many matches, specify another filter</div>)
     } else if (countries.length === 1) {
-        return (<div>Do this later</div>)
+        const country = countries[0]
+        return (
+            <div>
+                <h2>{country.name}</h2>
+                capital {country.capital}
+                population {country.population}
+                <h3>Languages</h3>
+                <ul>
+                    {country.languages.map((language,i) =>
+                        <div key={i}>{language.name}</div>
+                    )}
+                </ul>
+                <img src={country.flag} alt="flag" width="100px"/>
+            </div>)
     } else {
         return (
             <ul>
