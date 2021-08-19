@@ -3,25 +3,11 @@ import axios from 'axios'
 import {useEffect, useState} from "react";
 
 const CountryData = ({country, weatherData}) => {
+    let temperature = "??"
     if (weatherData != null) {
-        return (
-            <div>
-                <h2>{country.name}</h2>
-                capital {country.capital}
-                <br/>
-                population {country.population}
-                <h3>Languages</h3>
-                <ul>
-                    {country.languages.map((language, i) =>
-                        <div key={i}>{language.name}</div>
-                    )}
-                </ul>
-                <img src={country.flag} alt="flag" width="100px"/>
-                <h3>Weather in {country.capital}</h3>
-                temperature = {weatherData.temperature} degC
-            </div>
-        )
+        temperature = weatherData.temperature
     }
+
     return (
         <div>
             <h2>{country.name}</h2>
@@ -36,7 +22,7 @@ const CountryData = ({country, weatherData}) => {
             </ul>
             <img src={country.flag} alt="flag" width="100px"/>
             <h3>Weather in {country.capital}</h3>
-            temperature = Loading
+            temperature = {temperature} degC
         </div>
     )
 }
@@ -84,7 +70,7 @@ function App() {
     }, [filter])
 
     useEffect(() => {
-        let url = `http://api.weatherstack.com/current?access_key=${process.env.REACT_APP_WEATHER_API_KEY}&query=${filter}`
+        let url = `http://api.weatherstack.com/current?access_key=${process.env.REACT_APP_WEATHER_API_KEY}&query=${weatherQuery}`
 
         axios
             .get(url)
